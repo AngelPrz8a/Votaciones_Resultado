@@ -3,3 +3,4 @@ venv/
 models/__pycache__/
 repository/__pycache__/
 controllers/__pycache__/
+config.json
