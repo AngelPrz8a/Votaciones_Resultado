@@ -28,3 +28,11 @@ match1 = Match(
 
 repoMatch.save(match1)
 """
+
+"""
+from repository.matchRepository import MatchRepository
+from models.match import Match
+repoMatch = MatchRepository()
+
+repoMatch.delete("636c0c8ed673ded5a16e80b4")
+"""

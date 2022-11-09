@@ -9,6 +9,15 @@ app = Flask(__name__)
 cors = CORS(app)
 
 
+# Controllers
+from controllers.matchController import MatchController
+
+# Routes
+@app.route("/",methods=['GET'])
+def test():
+    json = {"message": "Server is running......."}
+    return jsonify(json)
+
 def loadFileConfig():
     with open('config.json') as f:
         data = json.load(f)
