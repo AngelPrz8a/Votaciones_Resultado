@@ -1,5 +1,5 @@
 from abstractModel import AbstractModel
 
 
-class CitizenModel(AbstractModel):
+class Match(AbstractModel):
     pass

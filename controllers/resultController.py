@@ -1,4 +1,4 @@
-from models.resultModel import ResultModel
+from models.result import Result
 
 
 class ResultController():

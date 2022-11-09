@@ -1,5 +1,5 @@
 from abstractModel import AbstractModel
 
 
-class MatchModel(AbstractModel):
+class Table(AbstractModel):
     pass

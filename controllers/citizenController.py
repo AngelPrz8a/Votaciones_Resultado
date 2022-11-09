@@ -1,4 +1,4 @@
-from models.citizenModel import CitizenModel
+from models.citizen import Citizen
 
 
 class CitizenController():

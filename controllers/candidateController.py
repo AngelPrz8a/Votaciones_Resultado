@@ -1,4 +1,4 @@
-from models.candidateModel import CandidateModel
+from models.candidate import Candidate
 
 
 class CandidateController():

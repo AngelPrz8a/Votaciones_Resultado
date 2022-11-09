@@ -1,5 +1,5 @@
 from abstractModel import AbstractModel
 
 
-class TableModel(AbstractModel):
+class Candidate(AbstractModel):
     pass

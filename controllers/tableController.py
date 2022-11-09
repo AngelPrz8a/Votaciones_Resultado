@@ -1,4 +1,4 @@
-from models.tableModel import TableModel
+from models.table import Table
 
 
 class TableController():
