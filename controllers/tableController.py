@@ -15,7 +15,7 @@ class TableController():
         return self.tableRepository.save(newTable)
 
     def show(self, id):
-        theTable = Table(self.tableRepository.findById())
+        theTable = Table(self.tableRepository.findById(id))
         return theTable.__dict__
 
     def update(self, id, theTable):

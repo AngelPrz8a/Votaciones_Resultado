@@ -14,7 +14,7 @@ class ResultController():
         return self.resultRepository.save(newResult)
 
     def show(self, id):
-        theResult = Result(self.resultRepository.findById())
+        theResult = Result(self.resultRepository.findById(id))
         return theResult.__dict__
 
     def update(self, id, theResult):
