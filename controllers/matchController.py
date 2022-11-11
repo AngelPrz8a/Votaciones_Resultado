@@ -5,7 +5,7 @@ from models.match import Match
 class MatchController():
 
     def __init__(self):
-        self.matchRepository = MatchRepository
+        self.matchRepository = MatchRepository()
 
     def index(self):
         return self.matchRepository.findAll()
@@ -21,7 +21,8 @@ class MatchController():
     def update(self, id, theMatch):
         actualMatch = Match(self.matchRepository.findById(id))
         actualMatch.name = theMatch["name"]
-        actualMatch.motto = theMatch["nmotto"]
+        actualMatch.motto = theMatch["motto"]
+        return self.matchRepository.save(actualMatch)
 
     def delete(self, id):
         return self.matchRepository.delete(id)

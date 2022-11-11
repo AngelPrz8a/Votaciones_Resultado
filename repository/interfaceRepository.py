@@ -20,7 +20,7 @@ class InterfaceRepository(Generic[T]):
             data = json.load(f)
         return data
 
-    def save(self, item: T):
+    def save(self, item:T):
         theCollection = self.baseDatos[self.coleccion]
         elId = ""
         item = self.transformRefs(item)

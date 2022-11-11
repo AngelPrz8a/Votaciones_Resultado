@@ -1,22 +1,28 @@
 from models.citizen import Citizen
-
+from repository.citizenRepository import CitizenRepository
 
 class CitizenController():
 
     def __init__(self):
-        print("Creando CitizenController")
+        self.citizenRepository = CitizenRepository()
 
     def index(self):
-        print("Listando todos los Ciudadanos")
+        return self.citizenRepository.findAll()
 
     def create(self, theCitizen):
-        print("Creando un Ciudadano")
+        newCitizen = Citizen(theCitizen)
+        return self.citizenRepository.save(newCitizen)
 
     def show(self, id):
-        print("Mostrando un Ciudadano")
+        theCitizen = Citizen(self.citizenRepository.findById(id))
+        return theCitizen.__dict__
 
     def update(self, id, theCitizen):
-        print("Actualizando Ciudadano con id ", id)
+        actualCitizen = Citizen(self.citizenRepository.findById(id))
+        actualCitizen.name = theCitizen["name"]
+        actualCitizen.lastname = theCitizen["lastname"]
+        actualCitizen.identification = theCitizen["identification"]
+        return self.citizenRepository.save(actualCitizen)
 
     def delete(self, id):
-        print("Eliminando Ciudadano con id ", id)
+        return self.citizenRepository.delete(id)

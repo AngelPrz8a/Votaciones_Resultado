@@ -1,22 +1,28 @@
 from models.table import Table
+from repository.tableRepository import TableRepository
 
 
 class TableController():
 
     def __init__(self):
-        print("Creando TableController")
+        self.tableRepository = TableRepository()
 
     def index(self):
-        print("Listando todos las Mesas")
+        return self.tableRepository.findAll()
 
     def create(self, theTable):
-        print("Creando una Mesa")
+        newTable = Table(theTable)
+        return self.tableRepository.save(newTable)
 
     def show(self, id):
-        print("Mostrando una Mesa")
+        theTable = Table(self.tableRepository.findById())
+        return theTable.__dict__
 
     def update(self, id, theTable):
-        print("Actualizando Mesa con id ", id)
+        actualTable = Table(self.tableRepository.findById(id))
+        actualTable.tableNumber = theTable["tableNumber"]
+        actualTable.documentsCount = theTable["documentsCount"]
+        return self.tableRepository.save(actualTable)
 
     def delete(self, id):
-        print("Eliminando Mesa con id ", id)
+        return self.tableRepository.delete(id)

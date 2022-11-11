@@ -1,22 +1,30 @@
 from models.candidate import Candidate
+from repository.candidateRepository import CandidateRepository
 
 
 class CandidateController():
 
     def __init__(self):
-        print("Creando CandidateController")
+        self.candidateRepository = CandidateRepository()
 
     def index(self):
-        print("Listar todos los Candidatos")
+        return self.candidateRepository.findAll()
 
     def create(self, theCandidate):
-        print("Crear un Candidato")
+        newCandidate = Candidate(theCandidate)
+        return self.candidateRepository.save(newCandidate)
 
     def show(self, id):
-        print("Mostrando un Candidato")
+        theCandidate = Candidate(self.candidateRepository.findById(id))
+        return theCandidate.__dict__
 
     def update(self, id, theCandidate):
-        print("Actualizando Candidato con id ", id)
+        actualCandidate = Candidate(self.candidateRepository.findById(id))
+        actualCandidate.resolution = theCandidate["resolution"]
+        actualCandidate.identification = theCandidate["identification"]
+        actualCandidate.name = theCandidate["name"]
+        actualCandidate.lastname = theCandidate["lastname"]
+        return self.candidateRepository.update(id, actualCandidate)
 
     def delete(self, id):
-        print("Elimiando Candidato con id ", id)
+        return self.candidateRepository.delete(id)
