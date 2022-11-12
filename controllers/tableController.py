@@ -19,10 +19,8 @@ class TableController():
         return theTable.__dict__
 
     def update(self, id, theTable):
-        actualTable = Table(self.tableRepository.findById(id))
-        actualTable.tableNumber = theTable["tableNumber"]
-        actualTable.documentsCount = theTable["documentsCount"]
-        return self.tableRepository.save(actualTable)
+        model = Table(theTable)
+        return self.tableRepository.update(id, model)
 
     def delete(self, id):
         return self.tableRepository.delete(id)

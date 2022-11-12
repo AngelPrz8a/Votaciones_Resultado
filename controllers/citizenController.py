@@ -1,28 +1,35 @@
 from models.citizen import Citizen
 from repository.citizenRepository import CitizenRepository
+from repository.tableRepository import TableRepository
 
 class CitizenController():
 
     def __init__(self):
         self.citizenRepository = CitizenRepository()
+        self.tableRepository = TableRepository()
 
     def index(self):
         return self.citizenRepository.findAll()
 
     def create(self, theCitizen):
-        newCitizen = Citizen(theCitizen)
-        return self.citizenRepository.save(newCitizen)
+        try:
+            table = self.tableRepository.findById(theCitizen["id_table"])
+            newCitizen = Citizen(theCitizen)
+            return self.citizenRepository.save(newCitizen)
+        except:
+            return "LA MESA NO EXISTE"
 
     def show(self, id):
         theCitizen = Citizen(self.citizenRepository.findById(id))
         return theCitizen.__dict__
 
     def update(self, id, theCitizen):
-        actualCitizen = Citizen(self.citizenRepository.findById(id))
-        actualCitizen.name = theCitizen["name"]
-        actualCitizen.lastname = theCitizen["lastname"]
-        actualCitizen.identification = theCitizen["identification"]
-        return self.citizenRepository.save(actualCitizen)
+        try:
+            table = self.tableRepository.findById(theCitizen["id_table"])
+            model = Citizen(theCitizen)
+            return self.citizenRepository.update(id, model)
+        except:
+            return "LA MESA NO EXISTE"
 
     def delete(self, id):
         return self.citizenRepository.delete(id)

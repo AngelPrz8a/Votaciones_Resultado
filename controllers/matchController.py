@@ -19,10 +19,8 @@ class MatchController():
         return theMatch.__dict__
 
     def update(self, id, theMatch):
-        actualMatch = Match(self.matchRepository.findById(id))
-        actualMatch.name = theMatch["name"]
-        actualMatch.motto = theMatch["motto"]
-        return self.matchRepository.save(actualMatch)
+        model = Match(theMatch)
+        return self.matchRepository.update(id, model)
 
     def delete(self, id):
         return self.matchRepository.delete(id)
