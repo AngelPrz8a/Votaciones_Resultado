@@ -3,6 +3,7 @@ from repository.resultRepository import ResultRepository
 from repository.tableRepository import TableRepository
 from repository.candidateRepository import CandidateRepository
 
+
 class ResultController():
 
     def __init__(self):
@@ -18,22 +19,28 @@ class ResultController():
             candidate = self.candidateRepository.findById(theResult["id_candidate"])
             table = self.tableRepository.findById(theResult["id_table"])
             newResult = Result(theResult)
-            return self.resultRepository.save(newResult)
+            return self.resultRepository.save(newResult), 200
         except:
-            return "El Candidato y/o Mesa No Existen"
+            return {"message": "El Candidato y/o Mesa no existen"}, 400
 
     def show(self, id):
-        theResult = Result(self.resultRepository.findById(id))
-        return theResult.__dict__
+        try:
+            theResult = Result(self.resultRepository.findById(id))
+            return theResult.__dict__, 200
+        except:
+            return {"message": "El Resultado no existe"}, 400
 
     def update(self, id, theResult):
         try:
             candidate = self.candidateRepository.findById(theResult["id_candidate"])
             table = self.tableRepository.findById(theResult["id_table"])
             model = Result(theResult)
-            return self.resultRepository.update(id, model)
+            return self.resultRepository.update(id, model), 200
         except:
-            return "El Candidato y/o Mesa No Existen"
+            return "El Candidato, Mesa y/o Resultado No Existen", 400
 
     def delete(self, id):
-        return self.resultRepository.delete(id)
+        try:
+            return self.resultRepository.delete(id), 200
+        except:
+            return {"message": "El Resultado no existe"}, 400

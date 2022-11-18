@@ -15,12 +15,21 @@ class MatchController():
         return self.matchRepository.save(newMatch)
 
     def show(self, id):
-        theMatch = Match(self.matchRepository.findById(id))
-        return theMatch.__dict__
+        try:
+            theMatch = Match(self.matchRepository.findById(id))
+            return theMatch.__dict__, 200
+        except:
+            return {"message": "El Partido no existe"}, 400
 
     def update(self, id, theMatch):
-        model = Match(theMatch)
-        return self.matchRepository.update(id, model)
+        try:
+            model = Match(theMatch)
+            return self.matchRepository.update(id, model), 200
+        except:
+            return {"message": "El Partido no existe"}, 400
 
     def delete(self, id):
-        return self.matchRepository.delete(id)
+        try:
+            return self.matchRepository.delete(id), 200
+        except:
+            return {"message": "El Partido no existe"}, 400

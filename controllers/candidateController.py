@@ -16,17 +16,27 @@ class CandidateController():
         try:
             match = self.matchRepository.findById(theCandidate["id_match"])
             newCandidate = Candidate(theCandidate)
-            return self.candidateRepository.save(newCandidate)
+            return self.candidateRepository.save(newCandidate), 200
         except:
-            return "El Partido No Existe"
+            return {"message": "El Partido no existe"}, 400
 
     def show(self, id):
-        theCandidate = Candidate(self.candidateRepository.findById(id))
-        return theCandidate.__dict__
+        try:
+            theCandidate = Candidate(self.candidateRepository.findById(id))
+            return theCandidate.__dict__, 200
+        except:
+            return {"message": "El Candidato no existe"}, 400
 
     def update(self, id, theCandidate):
-        model = Candidate(theCandidate)
-        return self.candidateRepository.update(id, model)
+        try:
+            match = self.matchRepository.findById(theCandidate["id_match"])
+            newCandidate = Candidate(theCandidate)
+            return self.candidateRepository.update(id, newCandidate), 200
+        except:
+            return {"message": "El Partido y/o Candidato no existen"}, 400
 
     def delete(self, id):
-        return self.candidateRepository.delete(id)
+        try:
+            return self.candidateRepository.delete(id), 200
+        except:
+            return {"message": "El Candidato no existe"}, 400

@@ -15,21 +15,27 @@ class CitizenController():
         try:
             table = self.tableRepository.findById(theCitizen["id_table"])
             newCitizen = Citizen(theCitizen)
-            return self.citizenRepository.save(newCitizen)
+            return self.citizenRepository.save(newCitizen), 200
         except:
-            return "LA MESA NO EXISTE"
+            return {"message": "La Mesa no existe"}, 400
 
     def show(self, id):
-        theCitizen = Citizen(self.citizenRepository.findById(id))
-        return theCitizen.__dict__
+        try:
+            theCitizen = Citizen(self.citizenRepository.findById(id))
+            return theCitizen.__dict__, 200
+        except:
+            return {"message": "El Ciudadano no existe"}, 400
 
     def update(self, id, theCitizen):
         try:
             table = self.tableRepository.findById(theCitizen["id_table"])
             model = Citizen(theCitizen)
-            return self.citizenRepository.update(id, model)
+            return self.citizenRepository.update(id, model), 200
         except:
-            return "LA MESA NO EXISTE"
+            return {"message": "La Mesa y/o Ciudadano no existen"}, 400
 
     def delete(self, id):
-        return self.citizenRepository.delete(id)
+        try:
+            return self.citizenRepository.delete(id), 200
+        except:
+            return {"message": "El Ciudadano no existe"}, 400

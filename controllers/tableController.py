@@ -15,12 +15,21 @@ class TableController():
         return self.tableRepository.save(newTable)
 
     def show(self, id):
-        theTable = Table(self.tableRepository.findById(id))
-        return theTable.__dict__
+        try:
+            theTable = Table(self.tableRepository.findById(id))
+            return theTable.__dict__, 200
+        except:
+            return {"message": "La Mesa no existe"}, 400
 
     def update(self, id, theTable):
-        model = Table(theTable)
-        return self.tableRepository.update(id, model)
+        try:
+            model = Table(theTable)
+            return self.tableRepository.update(id, model), 200
+        except:
+            return {"message": "La Mesa no existe"}, 400
 
     def delete(self, id):
-        return self.tableRepository.delete(id)
+        try:
+            return self.tableRepository.delete(id), 200
+        except:
+            return {"message": "La Mesa no existe"}, 400
